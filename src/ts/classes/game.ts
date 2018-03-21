@@ -1,8 +1,10 @@
 import { Canvas } from "../core/canvas";
 import { Player } from "./player";
+import { World } from "./world";
 
 export class Game {
 
+    world: World;
     player: Player;
     canvas: Canvas;
 

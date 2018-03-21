@@ -1,12 +1,13 @@
 import "mocha";
 import {expect} from "chai";
 import {Wall} from "../core/wall";
+import {WoodTile} from "../tiles/wood";
 import {Tile} from "../core/tile";
 import * as THREE from "three";
 
 describe("Wall class", () => {
 
-    let wall = new Wall(2, 5, new Tile());
+    let wall = new Wall(2, 5, new WoodTile());
 
     it("should be width of 2 tiles", () => {
         expect(wall.tileSize.width).to.equal(2);

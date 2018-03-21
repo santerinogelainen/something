@@ -1,5 +1,5 @@
-import {Position2D} from "./helpers";
-import { Drawable } from "./drawable";
+import {Position2D} from "../core/helpers";
+import { Drawable } from "../core/drawable";
 
 export class Character extends Drawable {
 

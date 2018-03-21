@@ -1,4 +1,4 @@
-import { Canvas } from "./canvas";
+import { Canvas } from "../core/canvas";
 import { Player } from "./player";
 
 export class Game {

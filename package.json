@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "test": "mocha -r ts-node/register src/ts/tests/**/*",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -15,12 +14,17 @@
     "three": "^0.91.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.2",
     "@types/jquery": "^3.3.1",
+    "@types/mocha": "^2.2.48",
     "@types/three": "^0.89.12",
     "awesome-typescript-loader": "^4.0.1",
+    "chai": "^4.1.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mocha": "^5.0.4",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.3",
+    "ts-node": "^5.0.1",
     "typescript": "^2.7.2",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.1.1"

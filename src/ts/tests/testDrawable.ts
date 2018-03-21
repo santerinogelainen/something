@@ -9,13 +9,13 @@ describe("Drawable class", () => {
     let drawable = new Drawable();
 
     it("update x", () => {
-        drawable.x = 10;
+        drawable.setX(10);
         expect(drawable.position.x).to.equal(10);
         expect(drawable.shape.position.x).to.equal(10);
     });
 
     it("update y", () => {
-        drawable.y = 10;
+        drawable.setY(10);
         expect(drawable.position.y).to.equal(10);
         expect(drawable.shape.position.y).to.equal(10);
     });

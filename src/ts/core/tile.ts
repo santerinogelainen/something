@@ -1,12 +1,9 @@
 import { Size2D } from "./helpers";
 import { Drawable } from "./drawable";
 
-export abstract class Tile {
+export class Tile {
 
     material: THREE.Material;
 
-    static size: Size2D = {
-        width: 20,
-        height: 20
-    }
+    static size: number = 20;
 }

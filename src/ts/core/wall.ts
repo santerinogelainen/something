@@ -1,19 +1,19 @@
-import { Drawable } from "./drawable";
 import { Size2D } from "./helpers";
 import { Tile } from "./tile";
 import * as THREE from "three";
+import { WorldObject } from "./worldobject";
 
-export class Wall extends Drawable {
+export class Wall extends WorldObject {
+
+    tile: Tile;
     tileSize: Size2D;
 
-    constructor(tileWidth: number, tileHeight: number, tile?: Tile) {
+    constructor(tileWidth: number, tileHeight: number, tile: Tile) {
         super();
 
+        this.tile = tile;
         this.updateTileSize(tileWidth, tileHeight);
-
-        if (tile != null) {
-            this.setMaterial(tile.material);
-        }
+        this.setMaterial(this.tile.material);
         
         this.updateShape();
     }
@@ -25,8 +25,8 @@ export class Wall extends Drawable {
         }
 
         this.setGeometry(
-            new THREE.PlaneGeometry(this.tileSize.width * Tile.size.width, 
-                this.tileSize.height * Tile.size.height
+            new THREE.PlaneGeometry(this.tileSize.width * Tile.size, 
+                this.tileSize.height * Tile.size
         ));
 
         this.updateShape();

@@ -6,6 +6,7 @@ export class Drawable {
     geometry: THREE.Geometry = new THREE.PlaneGeometry(20, 20);
     material: THREE.Material = new THREE.MeshBasicMaterial({color: 0xff0000});
     shape: THREE.Object3D = new THREE.Mesh(this.geometry, this.material);
+
     private _position: Position3D = {
         x: 0,
         y: 0,
@@ -30,12 +31,12 @@ export class Drawable {
         this.updateShape();
     }
 
-    set x(newx: number) {
+    setX(newx: number) {
         this._position.x = newx;
         this.shape.position.x = newx;
     }
 
-    set y(newy: number) {
+    setY(newy: number) {
         this._position.y = newy;
         this.shape.position.y = newy;
     }
@@ -49,10 +50,9 @@ export class Drawable {
         return this._position.z;
     }
 
-    set position(newposition: Position2D) {
-        this._position.x = newposition.x;
-        this._position.y = newposition.y;
-        this.shape.position.set(newposition.x, newposition.y, this.zindex);
+    setPosition(newposition: Position2D) {
+        this.setX(newposition.x);
+        this.setY(newposition.y);
     }
 
     get position(): Position2D {

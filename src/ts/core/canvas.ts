@@ -1,11 +1,13 @@
 import * as THREE from "three";
 import { Drawable } from "../core/drawable";
+import { Group } from "./group";
 
 export class Canvas {
 
     scene: THREE.Scene;
     camera: THREE.OrthographicCamera;
     renderer: THREE.Renderer;
+    controls: THREE.OrbitControls;
     width: number;
     height: number;
 
@@ -28,8 +30,12 @@ export class Canvas {
      * Append a drawable to the canvas
      * @param x Drawable
      */
-    append(x: Drawable) {
-        this.scene.add(x.shape);
+    append(x: Drawable | Group) {
+        if (x instanceof Drawable) {
+            this.scene.add(x.shape);
+        } else {
+            this.scene.add(x.group);
+        }
     }
 
     updateSize = () => {
@@ -46,6 +52,7 @@ export class Canvas {
 
         // set renderer size
         this.renderer.setSize(this.width, this.height);
+        this.controls.update();
         this.render();
     }
 
@@ -75,7 +82,9 @@ export class Canvas {
 
     loadCamera(): void {
         this.camera = new THREE.OrthographicCamera(this.width / -2, this.width / 2, this.height / 2, this.height / -2, 1, 1000);
+        this.controls = new THREE.OrbitControls(this.camera);
         this.camera.position.set(0, 0, 50);
+        this.controls.update();
     }
 
     loadRenderer(): void {

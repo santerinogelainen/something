@@ -11,6 +11,7 @@ export class Game {
     constructor() {
         this.loadCanvas();
         this.newPlayer();
+        this.newWorld();
         this.canvas.render();
     }
 
@@ -21,6 +22,11 @@ export class Game {
     newPlayer(): void {
         this.player = new Player();
         this.canvas.append(this.player);
+    }
+
+    newWorld(): void {
+        this.world = new World();
+        this.canvas.append(this.world);
     }
 
 }

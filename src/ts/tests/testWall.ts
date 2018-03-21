@@ -13,14 +13,14 @@ describe("Wall class", () => {
         expect(wall.tileSize.width).to.equal(2);
         let size: THREE.Vector3 = new THREE.Vector3();
         new THREE.Box3().setFromObject(wall.shape).getSize(size);
-        expect(size.x).to.equal(2 * Tile.size.width);
+        expect(size.x).to.equal(2 * Tile.size);
     });
 
     it("should be height of 5 tiles", () => {
         expect(wall.tileSize.height).to.equal(5);
         let size: THREE.Vector3 = new THREE.Vector3();
         new THREE.Box3().setFromObject(wall.shape).getSize(size);
-        expect(size.y).to.equal(5 * Tile.size.height);
+        expect(size.y).to.equal(5 * Tile.size);
     });
 
     it("change size", () => {
@@ -31,14 +31,14 @@ describe("Wall class", () => {
         expect(wall.tileSize.width).to.equal(4);
         let size: THREE.Vector3 = new THREE.Vector3();
         new THREE.Box3().setFromObject(wall.shape).getSize(size);
-        expect(size.x).to.equal(4 * Tile.size.width);
+        expect(size.x).to.equal(4 * Tile.size);
     });
 
     it("should be height of 6 tiles", () => {
         expect(wall.tileSize.height).to.equal(6);
         let size: THREE.Vector3 = new THREE.Vector3();
         new THREE.Box3().setFromObject(wall.shape).getSize(size);
-        expect(size.y).to.equal(6 * Tile.size.height);
+        expect(size.y).to.equal(6 * Tile.size);
     });
 
 });

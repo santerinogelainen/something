@@ -16,10 +16,12 @@ export class World extends Group {
         let chunk = new Chunk(0, 0);
 
         let wall = new Wall(8, 1, new WoodTile());
+        console.log(wall);
         chunk.addDrawable(wall);
 
         wall = new Wall(8, 1, new WoodTile());
         wall.setX(12);
+        console.log(wall);
         chunk.addDrawable(wall);
         this.addChunk(chunk);
 

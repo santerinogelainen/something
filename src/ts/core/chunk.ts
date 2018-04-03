@@ -51,6 +51,7 @@ export class Chunk extends Group {
     addGrid() {
         let helper = new THREE.GridHelper(Chunk.tileSize.width * Tile.size, Chunk.tileSize.width);
         helper.rotateX(degreesToRadians(90));
+        helper.position.z += 1;
         this.group.add(helper);
     }
     

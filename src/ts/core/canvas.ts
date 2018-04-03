@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import { Drawable } from "../core/drawable";
 import { Group } from "./group";
+import { Chunk } from "./chunk";
+import { Tile } from "./tile";
+import { DEBUG } from "./settings";
 
 export class Canvas {
 
@@ -10,6 +13,7 @@ export class Canvas {
     controls: THREE.OrbitControls;
     width: number;
     height: number;
+    loopRunning: boolean = false;
 
     constructor() {
         // calculate dimensions
@@ -20,8 +24,20 @@ export class Canvas {
         this.loadScene();
         this.loadCamera();
         this.loadRenderer();
+
+        // add debug thingies
+        if (DEBUG) {
+            this.addOrbitControls();
+        }
+
+        // start the loop
+        this.startLoop();
     }
 
+    /**
+     * Make the camera look at a drawable
+     * @param x drawable you want the camera to look at
+     */
     lookAt(x: Drawable) {
         this.camera.lookAt(x.shape.position);
     }
@@ -38,6 +54,9 @@ export class Canvas {
         }
     }
 
+    /**
+     * Update the size of the canvas, camera, renderer etc
+     */
     updateSize = () => {
         // calculate width
         this.calcWidth();
@@ -52,9 +71,45 @@ export class Canvas {
 
         // set renderer size
         this.renderer.setSize(this.width, this.height);
+        this.update();
+    }
+
+    /**
+     * Update the renderer
+     */
+    update() {
         this.controls.update();
         this.render();
     }
+
+    /**
+     * Start the "game loop"
+     */
+    startLoop() {
+        window.requestAnimationFrame(this.loop);
+        this.loopRunning = true;
+    }
+
+    /**
+     * Stop the "game loop"
+     */
+    stopLoop() {
+        this.loopRunning = false;
+    }
+
+
+    /**
+     * "game loop"
+     */
+    loop = () => {
+        if (this.loopRunning) {
+            requestAnimationFrame(this.loop);
+        }
+
+        this.update();
+    }
+
+
 
     /**
      * Calculate and set the width of the canvas
@@ -76,17 +131,24 @@ export class Canvas {
         return this.height;
     }
 
+    /**
+     * Load the scene into memory
+     */
     loadScene(): void {
         this.scene = new THREE.Scene();
     }
 
+    /**
+     * Load the camera into memory
+     */
     loadCamera(): void {
-        this.camera = new THREE.OrthographicCamera(this.width / -2, this.width / 2, this.height / 2, this.height / -2, 1, 1000);
-        this.controls = new THREE.OrbitControls(this.camera);
+        this.camera = new THREE.OrthographicCamera(this.width / -2, this.width / 2, this.height / 2, this.height / -2);
         this.camera.position.set(0, 0, 50);
-        this.controls.update();
     }
 
+    /**
+     * Load the renderer into memory
+     */
     loadRenderer(): void {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(this.width, this.height);
@@ -94,6 +156,17 @@ export class Canvas {
         $("#canvas-frame")[0].appendChild(this.renderer.domElement);
     }
 
+    /**
+     * Add orbitcontrols into the canvas
+     */
+    addOrbitControls(): void {
+        this.controls = new THREE.OrbitControls(this.camera);
+        this.controls.update();
+    }
+
+    /**
+     * Render the canvas
+     */
     render(): void {
         this.renderer.render(this.scene, this.camera);
     }

@@ -1,7 +1,8 @@
-import { Size2D, Position2D } from "./helpers";
+import { Size2D, Position2D, degreesToRadians } from "./helpers";
 import {Group} from "../core/group";
 import { Drawable } from "./drawable";
 import { Tile } from "./tile";
+import { DEBUG } from "./settings";
 import * as THREE from "three";
 
 export class Chunk extends Group {
@@ -11,7 +12,7 @@ export class Chunk extends Group {
         y: 0
     }
 
-    tileSize: Size2D = {
+    static tileSize: Size2D = {
         width: 20,
         height: 20
     }
@@ -20,7 +21,9 @@ export class Chunk extends Group {
         super();
         this.setX(x);
         this.setY(y);
-        this.addGrid();
+        if (DEBUG) {
+            this.addGrid();
+        }
     }
 
     setX(newx: number) {
@@ -34,15 +37,21 @@ export class Chunk extends Group {
     }
 
     private updateGroupPosition() {
-        this.group.position.x = this.worldPosition.x * this.tileSize.width * Tile.size;
-        this.group.position.y = this.worldPosition.y * this.tileSize.height * Tile.size;
+        this.group.position.x = this.worldPosition.x * Chunk.tileSize.width * Tile.size;
+        this.group.position.y = this.worldPosition.y * Chunk.tileSize.height * Tile.size;
     }
 
     addDrawable(d: Drawable) {
         this.group.add(d.shape);
     }
 
+    /**
+     * Add a grid to the chunk
+     */
     addGrid() {
-        this.group.add(new THREE.GridHelper(this.tileSize.width * Tile.size, this.tileSize.width));
+        let helper = new THREE.GridHelper(Chunk.tileSize.width * Tile.size, Chunk.tileSize.width);
+        helper.rotateX(degreesToRadians(90));
+        this.group.add(helper);
     }
+    
 }

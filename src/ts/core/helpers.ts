@@ -19,3 +19,7 @@ export interface Size3D {
     height: number;
     depth: number;
 }
+
+export function degreesToRadians(degrees: number) {
+    return degrees * (Math.PI / 180);
+}
